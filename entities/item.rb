@@ -1,4 +1,6 @@
 class Item
+  attr_accessor :id, :genre, :author, :source, :label, :publish_date, :archived
+
   def initialize(args)
     @id = 1
     @genre = args[:genre]
