@@ -8,5 +8,7 @@ class Movie < Item
     @silet = silet
   end
 
-  def can_be_archived?; end
+  def can_be_archived?
+    super || @silet.eql?(true)
+  end
 end
