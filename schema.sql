@@ -18,3 +18,10 @@ CREATE TABLE authors(
   last_name VARCHAR(100),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE labels(
+  id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+  title VARCHAR(100),
+  color VARCHAR(100),
+  PRIMARY KEY(id)
+);
