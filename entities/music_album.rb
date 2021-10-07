@@ -8,5 +8,7 @@ class MusicAlbum < Item
     @on_spotify = on_spotify
   end
 
-  def can_be_archived?; end
+  def can_be_archived?
+    super || @on_spotify.eql?(true)
+  end
 end
