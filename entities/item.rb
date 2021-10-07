@@ -23,8 +23,13 @@ class Item
   end
 
   def source=(source)
-    @autsourcehor = source
+    @source = source
     source.items.push(self) unless source.items.include?(self)
+  end
+
+  def genre=(genre)
+    @genre = genre
+    genre.items.push(self) unless genre.items.include?(self)
   end
 
   def can_be_archived?; end
