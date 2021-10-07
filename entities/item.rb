@@ -35,8 +35,10 @@ class Item
   end
 
   def can_be_archived?
-    (Date.new(@publish_date).year - Date.today.year) > 10
+    (Date.today.year - Date.parse(@publish_date).year) > 10
   end
 
-  def move_to_archive; end
+  def move_to_archive
+    @archived = can_be_archived? && true
+  end
 end
