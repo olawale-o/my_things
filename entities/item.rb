@@ -1,3 +1,5 @@
+require 'date'
+
 class Item
   attr_accessor :id, :publish_date, :archived
   attr_reader :label, :genre, :author, :source
@@ -32,7 +34,9 @@ class Item
     genre.items.push(self) unless genre.items.include?(self)
   end
 
-  def can_be_archived?; end
+  def can_be_archived?
+    (Date.new(@publish_date).year - Date.today.year) > 10
+  end
 
   def move_to_archive; end
 end
