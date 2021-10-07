@@ -9,5 +9,7 @@ class Book < Item
     @cover_state = cover_state
   end
 
-  def can_be_archived?; end
+  def can_be_archived?
+    super || @cover_state.eql?('bad')
+  end
 end
