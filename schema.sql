@@ -11,3 +11,10 @@ CREATE TABLE sources(
   name VARCHAR(100),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE authors(
+  id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  PRIMARY KEY(id)
+);
