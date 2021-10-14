@@ -13,6 +13,17 @@ module Screen
     user_input.to_i
   end
 
+  def create_author_screen
+    puts "\n\n"
+    puts 'Enter author information'
+    print 'First name: '
+    first_name = user_input
+    print 'Last name: '
+    last_name = user_input
+    [first_name, last_name]
+  end
+
+
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
     puts '1 - List all items'
