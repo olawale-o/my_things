@@ -23,6 +23,16 @@ module Screen
     [first_name, last_name]
   end
 
+  def create_label_screen
+    puts "\n\n"
+    puts 'Enter label information'
+    print 'Title: '
+    title = user_input
+    print 'Color: '
+    color = user_input
+    [title, color]
+  end
+
 
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
