@@ -77,6 +77,16 @@ module Screen
     [genre, source, publish_date, archived, multi_player, last_played_at]
   end
 
+  def list_item_screen
+    puts "\n\n"
+    puts 'Choose between 1 and 4'
+    puts '1 - List all books'
+    puts '2 - List all music albums'
+    puts '3 - List all movies'
+    puts '4 - List all games'
+    user_input.to_i
+  end
+
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
     puts '1 - List all items'
