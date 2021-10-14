@@ -33,6 +33,26 @@ module Screen
     [title, color]
   end
 
+  def create_item_screen
+    print 'Genre: '
+    genre = user_input
+    print 'Source: '
+    source = user_input
+    print 'Publish date: '
+    publish_date = user_input
+    print 'Archived? [Y/N]: '
+    archived = user_input == 'n'
+    [genre, source, publish_date, archived]
+  end
+
+  def create_book_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Publisher: '
+    publisher = user_input
+    print 'Cover state: '
+    cover_state = user_input
+    [genre, source, publish_date, archived, publisher, cover_state]
+  end
 
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
