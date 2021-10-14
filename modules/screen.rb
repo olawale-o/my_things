@@ -1,0 +1,100 @@
+module Screen
+  def user_input
+    gets.chomp
+  end
+
+  def console(text)
+    puts text
+  end
+
+  def create_item_screen_option
+    puts "\n\n"
+    print 'Do you want to add a book (1) or a music album (2) or a movie (3) or a game (4)? [Input the number]: '
+    user_input.to_i
+  end
+
+  def create_author_screen
+    puts "\n\n"
+    puts 'Enter author information'
+    print 'First name: '
+    first_name = user_input
+    print 'Last name: '
+    last_name = user_input
+    [first_name, last_name]
+  end
+
+  def create_label_screen
+    puts "\n\n"
+    puts 'Enter label information'
+    print 'Title: '
+    title = user_input
+    print 'Color: '
+    color = user_input
+    [title, color]
+  end
+
+  def create_item_screen
+    print 'Genre: '
+    genre = user_input
+    print 'Source: '
+    source = user_input
+    print 'Publish date: '
+    publish_date = user_input
+    print 'Archived? [Y/N]: '
+    archived = user_input == 'n'
+    [genre, source, publish_date, archived]
+  end
+
+  def create_book_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Publisher: '
+    publisher = user_input
+    print 'Cover state: '
+    cover_state = user_input
+    [genre, source, publish_date, archived, publisher, cover_state]
+  end
+
+  def create_album_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'On spotify? [Y/N]: '
+    on_spotify = user_input == 'n'
+    [genre, source, publish_date, archived, on_spotify]
+  end
+
+  def create_movie_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Silet? [Y/N]: '
+    silet = user_input == 'n'
+    [genre, source, publish_date, archived, silet]
+  end
+
+  def create_game_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Multiplayer? [Y/N]: '
+    multi_player = user_input == 'n'
+    print 'Last Played At: '
+    last_played_at = user_input
+    [genre, source, publish_date, archived, multi_player, last_played_at]
+  end
+
+  def list_item_screen
+    puts "\n\n"
+    puts 'Choose between 1 and 4'
+    puts '1 - List all books'
+    puts '2 - List all music albums'
+    puts '3 - List all movies'
+    puts '4 - List all games'
+    user_input.to_i
+  end
+
+  def show_welcome_screen
+    puts "Welcome to Catalog of my things\n\n"
+    puts '1 - List all items'
+    puts '2 - List all genres (e.g Comedy, Thriller)'
+    puts '3 - List all labels (e.g. Gift, New)'
+    puts '4 - List all authors (e.g. Stephen King)'
+    puts '5 - List all sources (e.g. From a friend, Online shop)'
+    puts '6 - Add an item'
+    puts '7 - Exit'
+  end
+end
