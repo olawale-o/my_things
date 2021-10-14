@@ -68,6 +68,15 @@ module Screen
     [genre, source, publish_date, archived, silet]
   end
 
+  def create_game_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Multiplayer? [Y/N]: '
+    multi_player = user_input == 'n'
+    print 'Last Played At: '
+    last_played_at = user_input
+    [genre, source, publish_date, archived, multi_player, last_played_at]
+  end
+
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
     puts '1 - List all items'
