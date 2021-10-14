@@ -54,6 +54,14 @@ module Screen
     [genre, source, publish_date, archived, publisher, cover_state]
   end
 
+  def create_album_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'On spotify? [Y/N]: '
+    on_spotify = user_input == 'n'
+    [genre, source, publish_date, archived, on_spotify]
+  end
+
+
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
     puts '1 - List all items'
