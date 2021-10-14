@@ -61,6 +61,12 @@ module Screen
     [genre, source, publish_date, archived, on_spotify]
   end
 
+  def create_movie_screen
+    genre, source, publish_date, archived = create_item_screen
+    print 'Silet? [Y/N]: '
+    silet = user_input == 'n'
+    [genre, source, publish_date, archived, silet]
+  end
 
   def show_welcome_screen
     puts "Welcome to Catalog of my things\n\n"
