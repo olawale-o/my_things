@@ -5,7 +5,7 @@ class Item
   attr_reader :label, :genre, :author, :source
 
   def initialize(args)
-    @id = 1
+    @id = Random.rand(1..10_000)
     @genre = args[:genre]
     @author = args[:author]
     @source = args[:source]
