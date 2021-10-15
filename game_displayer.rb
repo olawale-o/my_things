@@ -20,7 +20,7 @@ class GameDisplayer < Displayer
       print "Sourced From #{game.source.name} "
       print "Published on: #{game.publish_date} "
       print "Archived: #{game.archived}, "
-      print "It is a multiplayer: #{game.multiplayer} and was"
+      print "It is a multiplayer: #{game.multiplayer} and was "
       print "Last Played on: #{game.last_played_at}"
       print "\n"
     end

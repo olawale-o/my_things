@@ -17,13 +17,14 @@ class Game < Item
     {
       JSON.create_id => self.class.name,
       'id' => @id,
-      'label' => @label.title,
-      'author' => @author.first_name,
-      'genre' => @genre.name,
-      'source' => @source.name,
+      'label' => @label,
+      'author' => @author,
+      'genre' => @genre,
+      'source' => @source,
+      'publish_date' => @publish_date,
       'archived' => @archived,
       'multiplayer' => @multiplayer,
-      'last_played' => @last_played_at
+      'last_played_at' => @last_played_at
     }.to_json(*args)
   end
 end

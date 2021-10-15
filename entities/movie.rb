@@ -16,10 +16,10 @@ class Movie < Item
     {
       JSON.create_id => self.class.name,
       'id' => @id,
-      'label' => @label.title,
-      'author' => @author.first_name,
-      'genre' => @genre.name,
-      'source' => @source.name,
+      'label' => @label,
+      'author' => @author,
+      'genre' => @genre,
+      'source' => @source,
       'publish_date' => @publish_date,
       'archived' => @archived,
       'silet' => @silet
