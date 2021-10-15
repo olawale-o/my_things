@@ -11,15 +11,17 @@ require_relative 'genre_displayer'
 require_relative 'label_displayer'
 require_relative 'source_displayer'
 require_relative 'author_displayer'
+require_relative 'storage'
 
 class App
   include Screen
 
   def initialize
-    @books = []
-    @albums = []
-    @games = []
-    @movies = []
+    @storage = Storage.new
+    @books = @storage.parse[:books]
+    @albums = @storage.parse[:albums]
+    @games = @storage.parse[:games]
+    @movies = @storage.parse[:movies]
     @items = [@books, @movies, @games, @albums]
     @book_creator = BookCreator.new(@books)
     @book_displayer = BookDisplayer.new(@books)
@@ -41,6 +43,13 @@ class App
       show_welcome_screen
       key = user_input.to_i
       if key.eql?(7)
+        items = {
+          books: @books,
+          albums: @albums,
+          games: @games,
+          movies: @movies
+        }
+        @storage.stringify(items)
         is_running = false
       else
         handle_all_actions(key)

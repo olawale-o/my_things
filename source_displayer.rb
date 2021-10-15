@@ -12,11 +12,10 @@ class SourceDisplayer < Displayer
   end
 
   def list_all_sources
-    items = @items.flatten
     puts 'Sources:'
     print "\n"
-    items.each_index do |idx|
-      print "(#{idx}) #{items[idx].source.name}"
+    @items.each_index do |idx|
+      print "(#{idx}) #{@items[idx].source.name}"
       print "\n"
     end
   end
