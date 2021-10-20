@@ -22,19 +22,19 @@ class App
     @albums = @storage.parse[:albums]
     @games = @storage.parse[:games]
     @movies = @storage.parse[:movies]
-    @items = [@books, @movies, @games, @albums]
-    @book_creator = BookCreator.new(@books)
+    @associations = { labels: [], sources: [], genres: [], authors: [] }
+    @book_creator = BookCreator.new(@books, @associations)
     @book_displayer = BookDisplayer.new(@books)
-    @album_creator = MusicAlbumCreator.new(@albums)
+    @album_creator = MusicAlbumCreator.new(@albums, @associations)
     @album_displayer = MusicAlbumDisplayer.new(@albums)
-    @movie_creator = MovieCreator.new(@movies)
+    @movie_creator = MovieCreator.new(@movies, @associations)
     @movie_displayer = MovieDisplayer.new(@movies)
-    @game_creator = GameCreator.new(@games)
+    @game_creator = GameCreator.new(@games, @associations)
     @game_displayer = GameDisplayer.new(@games)
-    @genre_displayer = GenreDisplayer.new(@items)
-    @label_displayer = LabelDisplayer.new(@items)
-    @source_displayer = SourceDisplayer.new(@items)
-    @author_displayer = AuthorDisplayer.new(@items)
+    @genre_displayer = GenreDisplayer.new(@associations[:genres])
+    @label_displayer = LabelDisplayer.new(@associations[:labels])
+    @source_displayer = SourceDisplayer.new(@associations[:sources])
+    @author_displayer = AuthorDisplayer.new(@associations[:authors])
   end
 
   def execute

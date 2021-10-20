@@ -6,8 +6,8 @@ class GameCreator < Creator
   include Screen
   attr_accessor :games
 
-  def initialize(games)
-    super()
+  def initialize(games, args)
+    super(args)
     @games = games
   end
 
@@ -16,20 +16,16 @@ class GameCreator < Creator
   end
 
   def create_game
-    genre, source, publish_date, archived, multi_player, last_played_at = create_game_screen
-    title, color = create_label_screen
-    first_name, last_name = create_author_screen
+    multi_player, last_played_at = create_game_screen
+    publish_date, archived = create_item_screen
 
     details = {
-      genre: Genre.new(genre),
-      label: Label.new(title, color),
-      author: Author.new(first_name, last_name),
-      source: Source.new(source),
       publish_date: publish_date,
       archived: !archived
     }
     game = Game.new(!multi_player, last_played_at, details)
     @games << game
+    create_associations game
     puts "Game created successfully \n\n"
   end
 

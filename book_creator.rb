@@ -6,8 +6,8 @@ class BookCreator < Creator
   include Screen
   attr_accessor :books
 
-  def initialize(books)
-    super()
+  def initialize(books, args)
+    super(args)
     @books = books
   end
 
@@ -16,20 +16,15 @@ class BookCreator < Creator
   end
 
   def create_book
-    genre, source, publish_date, archived, publisher, cover_state = create_book_screen
-    title, color = create_label_screen
-    first_name, last_name = create_author_screen
-
+    publisher, cover_state = create_book_screen
+    publish_date, archived = create_item_screen
     details = {
-      genre: Genre.new(genre),
-      label: Label.new(title, color),
-      author: Author.new(first_name, last_name),
-      source: Source.new(source),
       publish_date: publish_date,
       archived: !archived
     }
     book = Book.new(publisher, cover_state, details)
     @books << book
+    create_associations book
     puts "Book created successfully \n\n"
   end
 

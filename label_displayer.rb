@@ -12,11 +12,10 @@ class LabelDisplayer < Displayer
   end
 
   def list_all_labels
-    items = @items.flatten
     puts 'Labels:'
     print "\n"
-    items.each_index do |idx|
-      print "(#{idx}) Title: #{items[idx].label.title}, Color: #{items[idx].label.color}"
+    @items.each_index do |idx|
+      print "(#{idx}) Title: #{@items[idx].title}, Color: #{@items[idx].color}"
       print "\n"
     end
   end
