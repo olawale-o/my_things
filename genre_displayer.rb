@@ -12,11 +12,10 @@ class GenreDisplayer < Displayer
   end
 
   def list_all_genres
-    items = @items.flatten
     puts 'Genres:'
     print "\n"
-    items.each_index do |idx|
-      print "(#{idx}) #{items[idx].genre.name}"
+    @items.each_index do |idx|
+      print "(#{idx}) #{@items[idx].name}"
       print "\n"
     end
   end
