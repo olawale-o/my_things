@@ -6,8 +6,8 @@ class MusicAlbumCreator < Creator
   include Screen
   attr_accessor :albums
 
-  def initialize(albums)
-    super()
+  def initialize(albums, args)
+    super(args)
     @albums = albums
   end
 
@@ -16,20 +16,16 @@ class MusicAlbumCreator < Creator
   end
 
   def create_album
-    genre, source, publish_date, archived, on_spotify = create_album_screen
-    title, color = create_label_screen
-    first_name, last_name = create_author_screen
+    on_spotify = create_album_screen
+    publish_date, archived = create_item_screen
 
     details = {
-      genre: Genre.new(genre),
-      label: Label.new(title, color),
-      author: Author.new(first_name, last_name),
-      source: Source.new(source),
       publish_date: publish_date,
       archived: !archived
     }
-    book = MusicAlbum.new(!on_spotify, details)
-    @albums << book
+    album = MusicAlbum.new(!on_spotify, details)
+    @albums << album
+    create_associations album
     puts "Music album created successfully \n\n"
   end
 

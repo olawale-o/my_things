@@ -6,8 +6,8 @@ class MovieCreator < Creator
   include Screen
   attr_accessor :movies
 
-  def initialize(movies)
-    super()
+  def initialize(movies, args)
+    super(args)
     @movies = movies
   end
 
@@ -16,20 +16,16 @@ class MovieCreator < Creator
   end
 
   def create_movie
-    genre, source, publish_date, archived, silet = create_movie_screen
-    title, color = create_label_screen
-    first_name, last_name = create_author_screen
+    silet = create_movie_screen
+    publish_date, archived = create_item_screen
 
     details = {
-      genre: Genre.new(genre),
-      label: Label.new(title, color),
-      author: Author.new(first_name, last_name),
-      source: Source.new(source),
       publish_date: publish_date,
       archived: !archived
     }
     movie = Movie.new(!silet, details)
     @movies << movie
+    create_associations movie
     puts "Movie created successfully \n\n"
   end
 
