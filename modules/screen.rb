@@ -1,4 +1,7 @@
+require_relative 'helper'
+
 module Screen
+  include Helper
   def user_input
     gets.chomp
   end
@@ -26,55 +29,55 @@ module Screen
   def create_label_screen
     puts "\n\n"
     puts 'Enter label information'
-    print 'Title: '
+    print 'Title (Gift, New): '
     title = user_input
-    print 'Color: '
+    print 'Color (Black): '
     color = user_input
     [title, color]
   end
 
+  def create_genre_screen
+    print 'Genre (e.g Comedy, Thriller): '
+    user_input
+  end
+
+  def create_source_screen
+    print 'Source (e.g Online shop, Friend): '
+    user_input
+  end
+
   def create_item_screen
-    print 'Genre: '
-    genre = user_input
-    print 'Source: '
-    source = user_input
-    print 'Publish date: '
+    print 'Publish date (YYYY/MM/DD): '
     publish_date = user_input
     print 'Archived? [Y/N]: '
     archived = user_input == 'n'
-    [genre, source, publish_date, archived]
+    [parse_date(publish_date), archived]
   end
 
   def create_book_screen
-    genre, source, publish_date, archived = create_item_screen
-    print 'Publisher: '
+    print 'Publisher (e.g Oreilly): '
     publisher = user_input
-    print 'Cover state: '
+    print 'Cover state (e.g Good or bad): '
     cover_state = user_input
-    [genre, source, publish_date, archived, publisher, cover_state]
+    [publisher, cover_state]
   end
 
   def create_album_screen
-    genre, source, publish_date, archived = create_item_screen
     print 'On spotify? [Y/N]: '
-    on_spotify = user_input == 'n'
-    [genre, source, publish_date, archived, on_spotify]
+    user_input == 'n'
   end
 
   def create_movie_screen
-    genre, source, publish_date, archived = create_item_screen
     print 'Silet? [Y/N]: '
-    silet = user_input == 'n'
-    [genre, source, publish_date, archived, silet]
+    user_input == 'n'
   end
 
   def create_game_screen
-    genre, source, publish_date, archived = create_item_screen
     print 'Multiplayer? [Y/N]: '
     multi_player = user_input == 'n'
-    print 'Last Played At: '
+    print 'Last Played At (YYYY/MM/DD): '
     last_played_at = user_input
-    [genre, source, publish_date, archived, multi_player, last_played_at]
+    [multi_player, parse_date(last_played_at)]
   end
 
   def list_item_screen
