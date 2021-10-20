@@ -3,7 +3,7 @@ class Author
   attr_accessor :first_name, :last_name, :id
 
   def initialize(first_name, last_name)
-    @id = 1
+    @id = Random.rand(1..1000)
     @first_name = first_name
     @last_name = last_name
     @items = []
@@ -12,5 +12,14 @@ class Author
   def add_item(item)
     @items << item
     item.add_author self
+  end
+
+  def to_json(*args)
+    {
+      JSON.create_id => self.class.name,
+      'id' => @id,
+      'first_name' => @first_name,
+      'last_name' => @last_name
+    }.to_json(*args)
   end
 end

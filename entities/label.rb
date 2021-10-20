@@ -3,7 +3,7 @@ class Label
   attr_reader :items
 
   def initialize(title, color)
-    @id = 1
+    @id = Random.rand(1..1000)
     @title = title
     @color = color
     @items = []
@@ -12,5 +12,14 @@ class Label
   def add_item(item)
     @items << item
     item.add_label self
+  end
+
+  def to_json(*args)
+    {
+      JSON.create_id => self.class.name,
+      'id' => @id,
+      'title' => @title,
+      'color' => @color
+    }.to_json(*args)
   end
 end
