@@ -6,32 +6,28 @@ class Item
 
   def initialize(args)
     @id = Random.rand(1..10_000)
-    @genre = args[:genre]
-    @author = args[:author]
-    @source = args[:source]
-    @label = args[:label]
     @publish_date = args[:publish_date]
     @archived = args[:archived]
   end
 
-  def label=(label)
+  def add_label(label)
     @label = label
-    label.items.push(self) unless label.items.include?(self)
+    label.add_item self unless label.items.include?(self)
   end
 
-  def author=(author)
+  def add_author(author)
     @author = author
-    author.items.push(self) unless author.items.include?(self)
+    author.add_author self unless author.items.include?(self)
   end
 
-  def source=(source)
+  def add_source(source)
     @source = source
-    source.items.push(self) unless source.items.include?(self)
+    source.add_source self unless source.items.include?(self)
   end
 
-  def genre=(genre)
+  def add_genre(genre)
     @genre = genre
-    genre.items.push(self) unless genre.items.include?(self)
+    genre.add_genre self unless genre.items.include?(self)
   end
 
   def can_be_archived?
@@ -39,6 +35,6 @@ class Item
   end
 
   def move_to_archive
-    @archived = can_be_archived? && true
+    @archived = can_be_archived?
   end
 end

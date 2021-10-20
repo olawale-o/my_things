@@ -10,6 +10,14 @@ class Genre
 
   def add_item(item)
     @items << item
-    item.genre = self
+    item.add_genre self
+  end
+
+  def to_json(*args)
+    {
+      JSON.create_id => self.class.name,
+      'id' => @id,
+      'name' => @name
+    }.to_json(*args)
   end
 end
