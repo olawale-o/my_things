@@ -1,4 +1,4 @@
-require_relative 'modules/screen'
+require_relative '../modules/screen'
 
 class Displayer
   include Screen

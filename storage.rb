@@ -9,107 +9,128 @@ require_relative 'entities/movie'
 require_relative 'entities/music_album'
 
 class Storage
-  def stringify(items)
-    books = items[:books]
-    albums = items[:albums]
-    movies = items[:movies]
-    games = items[:games]
-    File.open('books.json', 'w') { |f| f.write JSON.generate(books) }
-    File.open('albums.json', 'w') { |f| f.write JSON.generate(albums) }
-    File.open('movies.json', 'w') { |f| f.write JSON.generate(movies) }
-    File.open('games.json', 'w') { |f| f.write JSON.generate(games) }
+  def stringify(args)
+    labels = args[:labels]
+    genres = args[:genres]
+    sources = args[:sources]
+    authors = args[:authors]
+    items = args[:items]
+    File.open('items.json', 'w') { |f| f.write JSON.generate(items) } unless items.empty?
+    File.open('labels.json', 'w') { |f| f.write JSON.generate(labels) } unless labels.empty?
+    File.open('genres.json', 'w') { |f| f.write JSON.generate(genres) } unless genres.empty?
+    File.open('sources.json', 'w') { |f| f.write JSON.generate(sources) } unless sources.empty?
+    File.open('authors.json', 'w') { |f| f.write JSON.generate(authors) } unless authors.empty?
   end
 
   def parse
     {
-      books: parse_books,
-      albums: parse_albums,
-      movies: parse_movies,
-      games: parse_games
+      items: parse_items,
+      labels: parse_labels,
+      sources: parse_sources,
+      genres: parse_genres,
+      authors: parse_authors
     }
   end
 
-  def parse_details(item)
-    label = Label.new(item['label']['title'], item['label']['color'])
-    label.id = item['label']['id']
-    genre = Genre.new(item['genre']['name'])
-    genre.id = item['genre']['id']
-    source = Source.new(item['source']['name'])
-    source.id = item['source']['id']
-    author = Author.new(item['author']['first_name'], item['author']['last_name'])
-    author.id = item['author']['id']
-    [label, genre, source, author]
-  end
-
-  def parse_books
-    file_name = 'books.json'
+  def parse_labels
+    file_name = 'labels.json'
     return [] unless File.exist? file_name
 
-    JSON.parse(File.read(file_name)).map do |book|
-      label, genre, source, author = parse_details book
-      details = {
-        label: label,
-        genre: genre,
-        source: source,
-        author: author,
-        publish_date: book['publish_date'],
-        archived: book['archived']
-      }
-      Book.new(book['publisher'], book['covered'], details)
+    JSON.parse(File.read(file_name)).map do |json|
+      label = Label.new(json['title'], json['color'])
+      label.id = json['id']
+      label
     end
   end
 
-  def parse_albums
-    file_name = 'albums.json'
+  def parse_genres
+    file_name = 'genres.json'
     return [] unless File.exist? file_name
 
-    JSON.parse(File.read(file_name)).map do |album|
-      label, genre, source, author = parse_details album
-      details = {
-        label: label,
-        genre: genre,
-        source: source,
-        author: author,
-        publish_date: album['publish_date'],
-        archived: album['archived']
-      }
-      MusicAlbum.new(album['on_spotify'], details)
+    JSON.parse(File.read(file_name)).map do |json|
+      genre = Genre.new(json['name'])
+      genre.id = json['id']
+      genre
     end
   end
 
-  def parse_movies
-    file_name = 'movies.json'
+  def parse_authors
+    file_name = 'authors.json'
     return [] unless File.exist? file_name
 
-    JSON.parse(File.read(file_name)).map do |movie|
-      label, genre, source, author = parse_details movie
-      details = {
-        label: label,
-        genre: genre,
-        source: source,
-        author: author,
-        publish_date: movie['publish_date'],
-        archived: movie['archived']
-      }
-      Movie.new(movie['silet'], details)
+    JSON.parse(File.read(file_name)).map do |json|
+      author = Author.new(json['first_name'], json['last_name'])
+      author.id = json['id']
+      author
     end
   end
 
-  def parse_games
-    file_name = 'games.json'
+  def parse_sources
+    file_name = 'sources.json'
     return [] unless File.exist? file_name
 
-    JSON.parse(File.read(file_name)).map do |game|
-      label, genre, source, author = parse_details game
-      details = {
-        label: label,
-        genre: genre,
-        source: source,
-        author: author,
-        publish_date: game['publish_date'],
-        archived: game['archived']
-      }
-      Game.new(game['multiplayer'], game['last_played_at'], details)
+    JSON.parse(File.read(file_name)).map do |json|
+      source = Source.new(json['name'])
+      source.id = json['id']
+      source
     end
+  end
+
+  def parse_items
+    file_name = 'items.json'
+    return [] unless File.exist? file_name
+
+    JSON.parse(File.read(file_name)).map do |json|
+      case json['json_class']
+      when 'Book' then create_book json
+      when 'Game' then create_game json
+      when 'MusicAlbum' then create_album json
+      when 'Movie' then create_movie json
+      end
+    end
+  end
+
+  def create_book(json)
+    book = Book.new(json['publisher'], json['covered'], details(json))
+    create_association(book, json)
+    book
+  end
+
+  def create_game(json)
+    game = Game.new(json['multiplayer'], json['last_played_at'], details(json))
+    create_association(game, json)
+    game
+  end
+
+  def create_album(json)
+    album = MusicAlbum.new(json['on_spotify'], details(json))
+    create_association(album, json)
+    album
+  end
+
+  def create_movie(json)
+    movie = Movie.new(json['silet'], details(json))
+    create_association(movie, json)
+    movie
+  end
+
+  def parse_association(json)
+    author = parse_authors.detect { |a| a.id.eql?(json['author']['id']) }
+    label = parse_labels.detect { |a| a.id.eql?(json['label']['id']) }
+    genre = parse_genres.detect { |a| a.id.eql?(json['genre']['id']) }
+    source = parse_sources.detect { |a| a.id.eql?(json['source']['id']) }
+    [author, label, genre, source]
+  end
+
+  def create_association(item, json)
+    author, label, genre, source = parse_association json
+    item.add_label label
+    item.add_author author
+    item.add_genre genre
+    item.add_source source
+  end
+
+  def details(json)
+    { publish_date: json['publish_date'], archived: json['archived'] }
   end
 end

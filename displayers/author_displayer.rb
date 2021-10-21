@@ -12,11 +12,10 @@ class AuthorDisplayer < Displayer
   end
 
   def list_all_authors
-    items = @items.flatten
     puts 'Authors:'
     print "\n"
-    items.each_index do |idx|
-      print "(#{idx}) First name: #{items[idx].author.first_name} Last name: #{items[idx].author.last_name}"
+    @items.each_index do |idx|
+      print "(#{idx}) First name: #{@items[idx].first_name} Last name: #{@items[idx].last_name}"
       print "\n"
     end
   end

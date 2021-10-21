@@ -10,7 +10,7 @@ class Genre
 
   def add_item(item)
     @items << item
-    item.genre = self
+    item.add_genre self
   end
 
   def to_json(*args)

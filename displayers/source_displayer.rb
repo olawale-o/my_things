@@ -15,7 +15,7 @@ class SourceDisplayer < Displayer
     puts 'Sources:'
     print "\n"
     @items.each_index do |idx|
-      print "(#{idx}) #{@items[idx].source.name}"
+      print "(#{idx}) #{@items[idx].name}"
       print "\n"
     end
   end
