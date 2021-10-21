@@ -1,9 +1,10 @@
 require_relative 'displayer'
+require_relative '../entities/book'
 
 class BookDisplayer < Displayer
-  def initialize(books)
+  def initialize(items)
     super()
-    @books = books
+    @items = items
   end
 
   def display
@@ -12,7 +13,8 @@ class BookDisplayer < Displayer
   end
 
   def list_all_books
-    @books.map do |book|
+    puts "Books: \n\n"
+    @items.select { |item| item.instance_of? Book }.map do |book|
       print "[#{book.class}] "
       print "#{book.label.title}, "
       print "By #{book.author.first_name} "

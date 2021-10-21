@@ -1,6 +1,6 @@
 require_relative 'creator'
-require_relative 'entities/game'
-require_relative 'modules/screen'
+require_relative '../entities/game'
+require_relative '../modules/screen'
 
 class GameCreator < Creator
   include Screen

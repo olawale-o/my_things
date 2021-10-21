@@ -14,17 +14,13 @@ class Book < Item
   end
 
   def to_json(*args)
-    {
-      JSON.create_id => self.class.name,
-      'id' => @id,
-      'label' => @label,
-      'author' => @author,
-      'genre' => @genre,
-      'source' => @source,
-      'publish_date' => @publish_date,
-      'archived' => @archived,
-      'publisher' => @publisher,
-      'covered' => @cover_state
-    }.to_json(*args)
+    super.merge(
+      {
+        JSON.create_id => self.class.name,
+        'id' => @id,
+        'publisher' => @publisher,
+        'covered' => @cover_state
+      }
+    ).to_json(*args)
   end
 end

@@ -1,9 +1,9 @@
-require_relative 'modules/screen'
-require_relative 'entities/author'
-require_relative 'entities/label'
-require_relative 'entities/source'
-require_relative 'entities/genre'
-require_relative 'association_creator'
+require_relative '../modules/screen'
+require_relative '../entities/author'
+require_relative '../entities/label'
+require_relative '../entities/source'
+require_relative '../entities/genre'
+require_relative '../association_creator'
 
 class Creator
   include Screen

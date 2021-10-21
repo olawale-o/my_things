@@ -1,6 +1,6 @@
 require_relative 'creator'
-require_relative 'entities/music_album'
-require_relative 'modules/screen'
+require_relative '../entities/music_album'
+require_relative '../modules/screen'
 
 class MusicAlbumCreator < Creator
   include Screen

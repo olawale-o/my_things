@@ -1,6 +1,6 @@
 require_relative 'creator'
-require_relative 'entities/movie'
-require_relative 'modules/screen'
+require_relative '../entities/movie'
+require_relative '../modules/screen'
 
 class MovieCreator < Creator
   include Screen
