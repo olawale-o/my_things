@@ -1,5 +1,5 @@
 require_relative 'displayer'
-require_relative 'entities/music_album'
+require_relative '../entities/music_album'
 
 class MusicAlbumDisplayer < Displayer
   def initialize(items)

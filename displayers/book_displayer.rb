@@ -1,5 +1,5 @@
 require_relative 'displayer'
-require_relative 'entities/book'
+require_relative '../entities/book'
 
 class BookDisplayer < Displayer
   def initialize(items)
