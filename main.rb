@@ -11,6 +11,10 @@ require_relative 'genre_displayer'
 require_relative 'label_displayer'
 require_relative 'source_displayer'
 require_relative 'author_displayer'
+require_relative 'entities/music_album'
+require_relative 'entities/book'
+require_relative 'entities/movie'
+require_relative 'entities/game'
 require_relative 'storage'
 
 class App
@@ -18,19 +22,20 @@ class App
 
   def initialize
     @storage = Storage.new
-    @books = @storage.parse[:books]
-    @albums = @storage.parse[:albums]
-    @games = @storage.parse[:games]
-    @movies = @storage.parse[:movies]
-    @associations = { labels: [], sources: [], genres: [], authors: [] }
-    @book_creator = BookCreator.new(@books, @associations)
-    @book_displayer = BookDisplayer.new(@books)
-    @album_creator = MusicAlbumCreator.new(@albums, @associations)
-    @album_displayer = MusicAlbumDisplayer.new(@albums)
-    @movie_creator = MovieCreator.new(@movies, @associations)
-    @movie_displayer = MovieDisplayer.new(@movies)
-    @game_creator = GameCreator.new(@games, @associations)
-    @game_displayer = GameDisplayer.new(@games)
+    @items = @storage.parse[:items]
+    @labels = @storage.parse[:labels]
+    @sources = @storage.parse[:sources]
+    @authors = @storage.parse[:authors]
+    @genres = @storage.parse[:genres]
+    @associations = { labels: @labels, sources: @sources, genres: @genres, authors: @authors }
+    @book_creator = BookCreator.new(@items, @associations)
+    @book_displayer = BookDisplayer.new(@items)
+    @album_creator = MusicAlbumCreator.new(@items, @associations)
+    @album_displayer = MusicAlbumDisplayer.new(@items)
+    @movie_creator = MovieCreator.new(@items, @associations)
+    @movie_displayer = MovieDisplayer.new(@items)
+    @game_creator = GameCreator.new(@items, @associations)
+    @game_displayer = GameDisplayer.new(@items)
     @genre_displayer = GenreDisplayer.new(@associations[:genres])
     @label_displayer = LabelDisplayer.new(@associations[:labels])
     @source_displayer = SourceDisplayer.new(@associations[:sources])
@@ -43,13 +48,14 @@ class App
       show_welcome_screen
       key = user_input.to_i
       if key.eql?(7)
-        items = {
-          books: @books,
-          albums: @albums,
-          games: @games,
-          movies: @movies
+        hash = {
+          labels: @labels,
+          authors: @authors,
+          sources: @sources,
+          genres: @genres,
+          items: @items
         }
-        @storage.stringify(items)
+        @storage.stringify(hash)
         is_running = false
       else
         handle_all_actions(key)

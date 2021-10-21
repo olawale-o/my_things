@@ -1,9 +1,10 @@
 require_relative 'displayer'
+require_relative 'entities/movie'
 
 class MovieDisplayer < Displayer
-  def initialize(movies)
+  def initialize(items)
     super()
-    @movies = movies
+    @items = items
   end
 
   def display
@@ -12,7 +13,8 @@ class MovieDisplayer < Displayer
   end
 
   def list_all_movies
-    @movies.map do |movie|
+    puts "Movies: \n\n"
+    @items.select { |item| item.instance_of? Movie }.map do |movie|
       print "[#{movie.class}] "
       print "#{movie.label.title}, "
       print "By #{movie.author.first_name} "

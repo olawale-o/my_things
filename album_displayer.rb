@@ -1,9 +1,10 @@
 require_relative 'displayer'
+require_relative 'entities/music_album'
 
 class MusicAlbumDisplayer < Displayer
-  def initialize(albums)
+  def initialize(items)
     super()
-    @albums = albums
+    @items = items
   end
 
   def display
@@ -12,7 +13,8 @@ class MusicAlbumDisplayer < Displayer
   end
 
   def list_all_albums
-    @albums.map do |album|
+    puts "MusicAlbums: \n\n"
+    @items.select { |item| item.instance_of? MusicAlbum }.map do |album|
       print "[#{album.class}] "
       print "#{album.label.title}, "
       print "By #{album.author.first_name} "
