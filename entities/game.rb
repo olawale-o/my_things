@@ -14,17 +14,13 @@ class Game < Item
   end
 
   def to_json(*args)
-    {
-      JSON.create_id => self.class.name,
-      'id' => @id,
-      'label' => @label,
-      'author' => @author,
-      'genre' => @genre,
-      'source' => @source,
-      'publish_date' => @publish_date,
-      'archived' => @archived,
-      'multiplayer' => @multiplayer,
-      'last_played_at' => @last_played_at
-    }.to_json(*args)
+    suoer.merge(
+      {
+        JSON.create_id => self.class.name,
+        'id' => @id,
+        'multiplayer' => @multiplayer,
+        'last_played_at' => @last_played_at
+      }
+    ).to_json(*args)
   end
 end

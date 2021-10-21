@@ -37,4 +37,16 @@ class Item
   def move_to_archive
     @archived = can_be_archived?
   end
+
+  def to_json(*args)
+    {
+      'id' => @id,
+      'label' => @label,
+      'author' => @author,
+      'genre' => @genre,
+      'source' => @source,
+      'publish_date' => @publish_date,
+      'archived' => @archived
+    }.to_json(*args)
+  end
 end

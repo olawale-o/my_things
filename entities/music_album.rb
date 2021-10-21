@@ -13,16 +13,12 @@ class MusicAlbum < Item
   end
 
   def to_json(*args)
-    {
-      JSON.create_id => self.class.name,
-      'id' => @id,
-      'label' => @label,
-      'author' => @author,
-      'genre' => @genre,
-      'source' => @source,
-      'publish_date' => @publish_date,
-      'archived' => @archived,
-      'on_spotify' => @on_spotify
-    }.to_json(*args)
+    super.merge(
+      {
+        JSON.create_id => self.class.name,
+        'id' => @id,
+        'on_spotify' => @on_spotify
+      }
+    ).to_json(*args)
   end
 end
