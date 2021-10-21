@@ -38,7 +38,7 @@ class Item
     @archived = can_be_archived?
   end
 
-  def to_json(*args)
+  def to_json(_args)
     {
       'id' => @id,
       'label' => @label,
@@ -47,6 +47,6 @@ class Item
       'source' => @source,
       'publish_date' => @publish_date,
       'archived' => @archived
-    }.to_json(*args)
+    }
   end
 end

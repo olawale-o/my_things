@@ -14,7 +14,7 @@ class Game < Item
   end
 
   def to_json(*args)
-    suoer.merge(
+    super.merge(
       {
         JSON.create_id => self.class.name,
         'id' => @id,
