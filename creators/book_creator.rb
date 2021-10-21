@@ -1,6 +1,6 @@
 require_relative 'creator'
-require_relative 'entities/book'
-require_relative 'modules/screen'
+require_relative '../entities/book'
+require_relative '../modules/screen'
 
 class BookCreator < Creator
   include Screen
